@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Form Add Pesawat</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <br><br><br>
+                    <h2 class="text-center">Form Tambah Pesawat</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <form th:action="@{/pesawat/tambah/}" th:object="${pesawat}" method="POST">
+                    <input type="hidden" th:field="*{id}">
+                    <table>
+                        <tr>
+                            <td>Maskapai</td>
+                            <td>
+                                <input class="form-control" type="text" th:field="*{maskapai}">
+                            </td>
+                        </tr>
+                        <tr>
+                          <td>Tanggal Dibuat</td>
+                          <td>
+                              <input class="form-control" type="date" 
+                              th:field="*{tanggal_dibuat}">
+                          </td>
+                        </tr>
+                        <tr>
+                            <td>Tempat Dibuat</td>
+                            <td>
+                                <input class="form-control" type="text" 
+                                th:field="*{tempat_dibuat}" placeholder="masukkan tempat dibuat">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Jenis</td>
+                            <td>
+                                <select th:field="*{jenis_pesawat}" class="form-control">
+                                    <option value="" hidden selected>pilih jenis pesawat</option>
+                                    <option value="1">Komersial</option>
+                                    <option value="2">Militer</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tipe</td>
+                            <td>
+                                <select th:field="*{tipeModel}" class="form-control" >
+                                    <option value="" hidden selected>pilih tipe pesawat</option>
+                                    <option 
+                                        th:each="tipe : ${tipe}"
+                                        th:value="${tipe.id}" 
+                                        th:text="${tipe.nama}">
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Teknisi</td>
+                            <td>
+                                <input type="hidden" th:field="*{listPesawatTeknisi}">
+                                <select class="form-control">
+                                    <option value="" hidden selected>pilih teknisi</option>
+                                    <option 
+                                        th:each="teknisi : ${teknisi}"
+                                        th:value="${teknisi.id}" 
+                                        th:text="${teknisi.nama}">
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                      </table>
+                    <div class="col-12">
+                        <button class="btn btn-light"><a>Batal</a></button>
+                        <button class="btn" type="submit"
+                                style=" color: white;
+                                background-color: rgb(53, 174, 214);"    
+                        >
+                            Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
