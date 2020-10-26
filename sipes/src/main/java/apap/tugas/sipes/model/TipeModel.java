@@ -34,7 +34,7 @@ public class TipeModel implements Serializable{
     @Column(name = "deskripsi")
     private String deskripsi;
 
-    @OneToMany(mappedBy = "TipeModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tipeModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PesawatModel> listPesawat;
 
     public Long getId() {

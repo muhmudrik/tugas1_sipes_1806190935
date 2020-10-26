@@ -12,8 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -56,20 +54,16 @@ public class PesawatModel implements Serializable{
     @Column(name = "jenis_pesawat")
     private String jenis_pesawat;
 
-    @OneToMany(mappedBy = "PesawatModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pesawatModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PenerbanganModel> listPenerbangan;
-    
+
+    @OneToMany(mappedBy = "pesawatModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PesawatTeknisiModel> ListPesawatTeknisi;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_tipe", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private TipeModel tipeModel;
-
-    @ManyToMany
-    @JoinTable(
-        name = "pesawat_teknisi", 
-        joinColumns = @JoinColumn(name = "id"), 
-        inverseJoinColumns = @JoinColumn(name ="id"))
-    private List<TeknisiModel> listTeknisi;
 
     public Long getId() {
         return this.id;
@@ -127,19 +121,19 @@ public class PesawatModel implements Serializable{
         this.listPenerbangan = listPenerbangan;
     }
 
+    public List<PesawatTeknisiModel> getListPesawatTeknisi() {
+        return this.ListPesawatTeknisi;
+    }
+
+    public void setListPesawatTeknisi(List<PesawatTeknisiModel> ListPesawatTeknisi) {
+        this.ListPesawatTeknisi = ListPesawatTeknisi;
+    }
+
     public TipeModel getTipeModel() {
         return this.tipeModel;
     }
 
     public void setTipeModel(TipeModel tipeModel) {
         this.tipeModel = tipeModel;
-    }
-
-    public List<TeknisiModel> getListTeknisi() {
-        return this.listTeknisi;
-    }
-
-    public void setListTeknisi(List<TeknisiModel> listTeknisi) {
-        this.listTeknisi = listTeknisi;
     }
 }
