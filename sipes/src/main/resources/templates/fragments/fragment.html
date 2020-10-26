@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+
+        <head th:fragment="css">
+            <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        </head>
+
+        <head th:fragment="js">
+            <script
+                src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                crossorigin="anonymous"
+            >
+            </script>
+            <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+            <script th:src="@{/js/bootstrap.min.js}"></script>
+        </head>
+    </head>
+
+    <body>
+        <nav 
+            th:fragment="navbar"
+            class="navbar navbar-expand-sm navbar-light"
+            style="background-color: lightskyblue;"
+        >
+            <a class="navbar-brand font-weight-bold text-white" href="#"> 
+                SIPESAWAT
+            </a>
+            <button
+                class="navbar-toggler"
+                type="submit"
+                data-toggle="collapse"
+                data-target="#navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse">
+                <ul class="collapse navbar-collapse" style="color: white;">
+                    <a class="nav-item nav-link active text-white"
+                    th:href="@{/pesawat}"
+                    >
+                        Pesawat
+                    </a>
+                    <a class="nav-item nav-link active text-white"
+                    th:href="@{/penerbangan}"
+                    >
+                        Penerbangan
+                    </a>
+                    <a class="nav-item nav-link active text-white"
+                    th:href="@{/pesawat/pesawat-tua}"
+                    >
+                        Cari
+                    </a>
+                    <a class="nav-item nav-link active text-white"
+                    th:href="@{/pesawat/filter}"
+                    >
+                        Filter
+                    </a>
+                </ul>
+            </div>
+        </nav>
+    </body>
+</html>
