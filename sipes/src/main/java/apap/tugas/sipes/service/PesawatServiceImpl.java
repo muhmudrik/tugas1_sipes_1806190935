@@ -17,8 +17,10 @@ public class PesawatServiceImpl implements PesawatService{
     PesawatDb pesawatDb;
     
     public void addPesawat(PesawatModel pesawat){
-        String noseri = "";
-        noseri += pesawat.getJenis_pesawat() + pesawat.getTipeModel().getId();
+		String noseri = "";
+		Long id_tipe = pesawat.getTipeModel().getId();
+		String kodePswt = id_tipe == 1 ? "BO" : id_tipe == 2 ? "ATR" : id_tipe == 3 ? "AB" : "BB";
+        noseri += pesawat.getJenis_pesawat() + kodePswt;
         Integer taunBuat = pesawat.getTanggal_dibuat().getYear();
         noseri += new StringBuilder().append(taunBuat).reverse();
         noseri += taunBuat + 8;

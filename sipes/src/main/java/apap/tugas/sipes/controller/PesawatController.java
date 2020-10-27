@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -104,7 +105,15 @@ public class PesawatController {
         // System.out.println(pesawat.getId());
         List<PesawatTeknisiModel> temp = pesawat.getListPesawatTeknisi();
         pesawat.setListPesawatTeknisi(null);
-        pesawatService.addPesawat(pesawat);
+        while (true) {
+            try {
+                pesawatService.addPesawat(pesawat);
+                break;
+            } catch (DataIntegrityViolationException e) {
+                continue;
+            }
+            
+        }
         model.addAttribute("pesawat", pesawat);
         // System.out.println(pesawat.getId());
         for (PesawatTeknisiModel pesawatTeknisi : temp) {
