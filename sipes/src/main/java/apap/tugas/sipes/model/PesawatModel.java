@@ -20,12 +20,14 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "pesawat")
 public class PesawatModel implements Serializable{
     @Id
-    @Size(max = 20)
+    // @Range(max = 20)
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -45,6 +47,7 @@ public class PesawatModel implements Serializable{
     @Column(name = "tempat_dibuat")
     private String tempat_dibuat;
 
+    @DateTimeFormat(pattern = "[yyyy-MM-dd]")
     @NotNull
     @Column(name = "tanggal_dibuat")
     private LocalDate tanggal_dibuat;
@@ -105,6 +108,10 @@ public class PesawatModel implements Serializable{
         this.tanggal_dibuat = tanggal_dibuat;
     }
 
+    /**
+     * Komersial atau Militer
+     * @return
+     */
     public String getJenis_pesawat() {
         return this.jenis_pesawat;
     }
@@ -129,6 +136,10 @@ public class PesawatModel implements Serializable{
         this.ListPesawatTeknisi = ListPesawatTeknisi;
     }
 
+    /**
+     * Boeing, ATR, Airbus, Bombardier
+     * @return
+     */
     public TipeModel getTipeModel() {
         return this.tipeModel;
     }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hasil Tambah Pesawat</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="container-fluid">
+            <br><br><br><br><br>
+            <div class="row text-center">
+                <div class="col">
+                    <h3 th:text="'Pesawat ' + ${pesawat.maskapai} + ' dengan nomor 
+                    seri ' + ${pesawat.nomor_seri} + ' berhasil ditambahkan.'"></h3>
+                    <br><br><br>
+                    <a th:href="@{/pesawat}">Kembali ke Daftar Pesawat</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
