@@ -74,7 +74,6 @@ public class PesawatController {
         PesawatTeknisiModel pesawatTeknisi = new PesawatTeknisiModel();
         pesawatTeknisi.setPesawatModel(pesawat);
         pesawat.getListPesawatTeknisi().add(pesawatTeknisi);
-        System.out.println(pesawat.getListPesawatTeknisi().size());
         model.addAttribute("pesawat", pesawat);
         return "form-tambah-pesawat";
     }
@@ -91,7 +90,6 @@ public class PesawatController {
         model.addAttribute("teknisi", teknisiList);
         
         pesawat.getListPesawatTeknisi().remove(0);
-        System.out.println(pesawat.getListPesawatTeknisi().size());
         model.addAttribute("pesawat", pesawat);
         return "form-tambah-pesawat";
     }
@@ -101,8 +99,6 @@ public class PesawatController {
         @ModelAttribute PesawatModel pesawat,
         Model model
     ) {
-        // System.out.println("SAVEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-        // System.out.println(pesawat.getId());
         List<PesawatTeknisiModel> temp = pesawat.getListPesawatTeknisi();
         pesawat.setListPesawatTeknisi(null);
         while (true) {
@@ -115,7 +111,6 @@ public class PesawatController {
             
         }
         model.addAttribute("pesawat", pesawat);
-        // System.out.println(pesawat.getId());
         for (PesawatTeknisiModel pesawatTeknisi : temp) {
             pesawatTeknisi.setPesawatModel(pesawat);
             pesawatTeknisiService.addPesawatTeknisi(pesawatTeknisi);
