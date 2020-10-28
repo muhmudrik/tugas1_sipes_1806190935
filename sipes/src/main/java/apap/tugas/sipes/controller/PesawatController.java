@@ -125,7 +125,8 @@ public class PesawatController {
 
     @GetMapping("/pesawat")
     private String getAllPesawat(Model model){
-
+        List<PesawatModel> listPesawat = pesawatService.getAllPesawat();
+        model.addAttribute("listPesawat", listPesawat);
         return "view-all-pesawat";
     }
 
