@@ -67,4 +67,10 @@ public class PesawatServiceImpl implements PesawatService {
 	public List<PesawatModel> getAllPesawat() {
 		return pesawatDb.findAll();
 	}
+
+	@Override
+	public PesawatModel getPesawatById(Long id) {
+		return pesawatDb.findById(id).get();
+	}
+
 }

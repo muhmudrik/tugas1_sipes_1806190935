@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pesawat</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="container">
+            <br><br><br>
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-center">Detail Pesawat</h3>
+                    <br>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h6>Nomor Seri Pesawat</h6>
+                                </td>
+                                <td>
+                                    <p th:text="${pesawat.nomor_seri}"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6>Jenis Pesawat</h6>
+                                </td>
+                                <td>
+                                    <p th:text="${pesawat.jenis_pesawat}"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6>Nama Tipe Pesawat</h6>
+                                </td>
+                                <td>
+                                    <p th:text="${pesawat.tipeModel.nama}"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6>Maskapai</h6>
+                                </td>
+                                <td>
+                                    <p th:text="${pesawat.maskapai}"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6>Tempat Dibuat</h6>
+                                </td>
+                                <td>
+                                    <p th:text="${pesawat.tempat_dibuat}"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6>Tanggal Dibuat</h6>
+                                </td>
+                                <td>
+                                    <p th:text="${formatter.format(pesawat.tanggal_dibuat)}"></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="text-center">Daftar Teknisi Pesawat</h5>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <table class="table">
+                        <thead class="table-primary">
+                            <tr>
+                                <td>No</td>
+                                <td>Nama</td>
+                                <td>Nomor Telepon</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="teknisi, iterationStatus : ${listTeknisi}">
+                                <td th:text="${iterationStatus.count}"></td>
+                                <td th:text="${teknisi.nama}"></td>
+                                <td th:text="'0' + ${teknisi.nomor_telepon}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+    <style>
+        p{
+            margin: 0;
+        }
+        h6{
+            margin: 0;
+        }
+    </style>
+</html>

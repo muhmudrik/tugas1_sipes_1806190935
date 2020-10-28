@@ -9,4 +9,6 @@ public interface PesawatService {
 	void addPesawat(PesawatModel pesawat);
    
 	List<PesawatModel> getAllPesawat();
+	
+	PesawatModel getPesawatById(Long id);
 }

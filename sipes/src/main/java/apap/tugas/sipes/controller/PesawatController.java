@@ -1,5 +1,6 @@
 package apap.tugas.sipes.controller;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import apap.tugas.sipes.model.PesawatModel;
@@ -123,6 +125,26 @@ public class PesawatController {
         List<PesawatModel> listPesawat = pesawatService.getAllPesawat();
         model.addAttribute("listPesawat", listPesawat);
         return "view-all-pesawat";
+    }
+
+    @GetMapping("/pesawat/{idPesawat}")
+    private String viewDetailPesawat(
+        @PathVariable Long idPesawat,
+        Model model
+    ) {
+        PesawatModel pesawat = pesawatService.getPesawatById(idPesawat);
+        model.addAttribute("pesawat", pesawat);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+        model.addAttribute("formatter", formatter);
+        
+        List<TeknisiModel> listTeknisi = new ArrayList<TeknisiModel>();
+        List<PesawatTeknisiModel> listPesawatTeknisi = pesawat.getListPesawatTeknisi();
+        for (PesawatTeknisiModel pesawatTeknisi : listPesawatTeknisi) {
+            listTeknisi.add(pesawatTeknisi.getTeknisiModel());
+        }
+
+        model.addAttribute("listTeknisi", listTeknisi);
+        return "view-pesawat";
     }
 
 }
