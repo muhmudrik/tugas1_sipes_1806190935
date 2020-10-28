@@ -147,4 +147,25 @@ public class PesawatController {
         return "view-pesawat";
     }
 
+    @GetMapping("/pesawat/ubah/{idPesawat}")
+    private String getFormUbahPesawat(
+        @PathVariable Long idPesawat,
+        Model model
+    ) {
+        PesawatModel pesawat = pesawatService.getPesawatById(idPesawat);
+        model.addAttribute("pesawat", pesawat);
+        return "form-update-pesawat";
+    }
+
+    @PostMapping("/pesawat/ubah/{idPesawat}")
+    private String ubahPesawat(
+        @PathVariable Long idPesawat,
+        @ModelAttribute PesawatModel pesawat,
+        Model model
+    ) {
+        pesawatService.updatePesawat(pesawat);
+        model.addAttribute("pesawat", pesawat);
+        return "hasil-ubah-pesawat";
+    }
+
 }

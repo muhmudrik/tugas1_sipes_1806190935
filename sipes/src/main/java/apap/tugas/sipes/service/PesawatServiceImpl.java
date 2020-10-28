@@ -17,7 +17,42 @@ public class PesawatServiceImpl implements PesawatService {
 	@Autowired
 	PesawatDb pesawatDb;
 
+	@Override
+	public List<PesawatModel> getAllPesawat() {
+		return pesawatDb.findAll();
+	}
+
+	@Override
+	public PesawatModel getPesawatById(Long id) {
+		return pesawatDb.findById(id).get();
+	}
+
 	public void addPesawat(PesawatModel pesawat) {
+		String noseri = noSeriBuilder(pesawat);
+		pesawat.setNomor_seri(noseri);
+		pesawatDb.save(pesawat);
+	}
+
+	public void updatePesawat(PesawatModel pesawatBaru){
+		boolean modif = false;
+		PesawatModel pesawatLama = pesawatDb.findById(pesawatBaru.getId()).get();
+		int bandingTanggalBuat = 
+			pesawatLama.getTanggal_dibuat().compareTo(pesawatBaru.getTanggal_dibuat());
+		
+			if(bandingTanggalBuat != 0){
+			modif = true;
+		}
+		if(!pesawatLama.getJenis_pesawat().equals(pesawatBaru.getJenis_pesawat())){
+			modif = true;
+		}
+
+		if(modif){
+			pesawatBaru.setNomor_seri(noSeriBuilder(pesawatBaru));
+		}
+		pesawatDb.save(pesawatBaru);
+	}
+
+	private String noSeriBuilder(PesawatModel pesawat){
 		String noseri = "";
 		Long id_tipe = pesawat.getTipeModel().getId();
 		String kodePswt = id_tipe == 1 ? "BO" : id_tipe == 2 ? "ATR" : id_tipe == 3 ? "AB" : "BB";
@@ -27,8 +62,7 @@ public class PesawatServiceImpl implements PesawatService {
 		noseri += new StringBuilder().append(taunBuat).reverse();
 		noseri += taunBuat + 8;
 		noseri += getAlphaNumericString(2);
-		pesawat.setNomor_seri(noseri);
-		pesawatDb.save(pesawat);
+		return noseri;
 	}
 
 	/**
@@ -63,14 +97,5 @@ public class PesawatServiceImpl implements PesawatService {
 		return r.toString();
 	}
 
-	@Override
-	public List<PesawatModel> getAllPesawat() {
-		return pesawatDb.findAll();
-	}
-
-	@Override
-	public PesawatModel getPesawatById(Long id) {
-		return pesawatDb.findById(id).get();
-	}
 
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Form Update Pesawat</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <br><br><br>
+                    <h2 class="text-center">Form Update Pesawat</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <form th:action="@{/pesawat/ubah/} + ${pesawat.id}" th:object="${pesawat}" method="POST">
+                    <input type="hidden" th:field="*{id}">
+                    <input th:field="*{tipeModel}" hidden>
+                    <input th:field="*{listPesawatTeknisi}" hidden>
+                    <input th:field="*{nomor_seri}" hidden>
+                    <table>
+                        <tr>
+                            <td>Maskapai</td>
+                            <td>
+                                <input class="form-control" type="text" th:field="*{maskapai}" placeholder="masukkan maskapai">
+                            </td>
+                        </tr>
+                        <tr style="background-color: gainsboro;">
+                            <td>Tanggal Dibuat</td>
+                            <td>
+                                <input class="form-control" type="date" 
+                                th:field="*{tanggal_dibuat}">
+                          </td>
+                        </tr>
+                        <tr>
+                            <td>Tempat Dibuat</td>
+                            <td>
+                                <input class="form-control" type="text" 
+                                th:field="*{tempat_dibuat}" placeholder="masukkan tempat dibuat">
+                            </td>
+                        </tr>
+                        <tr style="background-color: gainsboro;">
+                            <td>Jenis</td>
+                            <td>
+                                <select th:field="*{jenis_pesawat}" class="form-control">
+                                    <option value="" hidden selected>pilih jenis pesawat</option>
+                                    <option value="Komersial">Komersial</option>
+                                    <option value="Militer">Militer</option>
+                                </select>
+                            </td>
+                        </tr>
+                      </table>
+                    <div class="col-12">
+                        <a th:href="@{/pesawat}" class="btn btn-light" style="color: inherit;">Batal</a>
+                        <button class="btn" type="submit" name="save"
+                                style=" color: white;
+                                background-color: rgb(53, 174, 214);"    
+                        >
+                            Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
