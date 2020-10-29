@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Form Update Penerbangan</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <br><br><br>
+                    <h2 class="text-center">Form Update Penerbangan</h2>
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <form th:action="@{/penerbangan/ubah/} + ${penerbangan.id}" th:object="${penerbangan}" method="POST">
+                        <input type="hidden" th:field="*{id}">
+                        <input type="hidden" th:field="*{pesawatModel}">
+                        <p>Kode Penerbangan</p>
+                        <input class="form-control" type="text" 
+                            th:field="*{nomor_penerbangan}"
+                            placeholder="masukkan kode penerbangan">
+                            <p th:text="${kode16}" style="color: red;"></p>
+                            <p th:text="${kodeunik}" style="color: red;"></p>
+                            <p>Kode Bandara Asal</p>
+                        <input class="form-control" type="text" 
+                            th:field="*{kode_bandara_asal}"
+                            placeholder="masukkan kode bandara asal">
+                        <p>Kode Bandara Tujuan</p>
+                        <input class="form-control" type="text" 
+                            th:field="*{kode_bandara_tujuan}"
+                            placeholder="masukkan kode bandara tujuan">
+                        <p>Waktu Berangkat</p>
+                        <input class="form-control" type="date" 
+                            th:field="*{waktu_berangkat}">
+                        <div class="row justify-content-center my-4">
+                            <a th:href="@{/penerbangan}" class="btn btn-light" style="color: inherit;">Batal</a>
+                            <button class="btn" type="submit" name="save"
+                                    style=" color: white;
+                                    background-color: rgb(53, 174, 214);"    
+                            >
+                                Simpan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <style>
+        p{
+            margin-bottom: 0;
+            margin-top: 20px;
+        }
+    </style>
+</html>

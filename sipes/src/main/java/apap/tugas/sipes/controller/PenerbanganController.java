@@ -25,7 +25,7 @@ public class PenerbanganController {
     private PenerbanganService penerbanganService;
 
     @GetMapping("/penerbangan")
-    private String getAllPesawat(Model model){
+    private String getAllPenerbangan(Model model){
         List<PenerbanganModel> listPenerbangan = penerbanganService.getAllPenerbangan();
         model.addAttribute("listPenerbangan", listPenerbangan);
         return "view-all-penerbangan";
@@ -70,4 +70,26 @@ public class PenerbanganController {
         model.addAttribute("formatter", formatter);
         return "view-penerbangan";
     }
+
+    @GetMapping("/penerbangan/ubah/{idPenerbangan}")
+    private String getFormUpdatePenerbangan(
+        @PathVariable Long idPenerbangan,
+        Model model
+    ) {
+        PenerbanganModel penerbangan = penerbanganService.getPenerbanganById(idPenerbangan);
+        model.addAttribute("penerbangan", penerbangan);
+        return "form-update-penerbangan";
+    }
+
+    @PostMapping(value = "/penerbangan/ubah/{idPenerbangan}", params = "save")
+    private String updatePenerbangan(
+        @PathVariable Long idPenerbangan,
+        @ModelAttribute PenerbanganModel penerbangan,
+        Model model
+    ) {
+        model.addAttribute("penerbangan", penerbangan);
+        penerbanganService.updatePenerbangan(penerbangan);
+        return "hasil-ubah-penerbangan";
+    }
+    
 }
