@@ -27,7 +27,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "pesawat")
 public class PesawatModel implements Serializable{
     @Id
-    // @Range(max = 20)
+    @Range(max = 20)
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
