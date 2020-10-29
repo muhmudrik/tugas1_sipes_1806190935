@@ -15,15 +15,19 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "penerbangan")
 public class PenerbanganModel implements Serializable {
 
     @Id
-    @Size(max = 20)
+    @Range(max = 20)
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,6 +42,7 @@ public class PenerbanganModel implements Serializable {
     @Column(name = "kode_bandara_tujuan")
     private String kode_bandara_tujuan;
     
+    @DateTimeFormat(pattern = "[yyyy-MM-dd]")
     @NotNull
     @Column(name = "waktu_berangkat")
     private LocalDate waktu_berangkat;
@@ -47,9 +52,9 @@ public class PenerbanganModel implements Serializable {
     @Column(name = "nomor_penerbangan", unique = true)
     private String nomor_penerbangan;
     
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_pesawat", referencedColumnName = "id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "id_pesawat", referencedColumnName = "id", nullable = true)
+    @JsonIgnore
     private PesawatModel pesawatModel;
 
     public Long getId() {
