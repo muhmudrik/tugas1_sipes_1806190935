@@ -9,5 +9,7 @@ public interface PenerbanganService {
     void addPenerbangan(PenerbanganModel penerbangan);
     
     List<PenerbanganModel> getAllPenerbangan();
+
+	PenerbanganModel getPenerbanganById(Long idPenerbangan);
     
 }

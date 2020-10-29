@@ -1,5 +1,6 @@
 package apap.tugas.sipes.controller;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import apap.tugas.sipes.model.PenerbanganModel;
@@ -55,5 +57,17 @@ public class PenerbanganController {
         }
         model.addAttribute("penerbangan", penerbangan);
         return "hasil-tambah-penerbangan";
+    }
+
+    @GetMapping("/penerbangan/{idPenerbangan}")
+    private String viewDetailPenerbangan(
+        @PathVariable Long idPenerbangan,
+        Model model
+    ) {
+        PenerbanganModel penerbangan = penerbanganService.getPenerbanganById(idPenerbangan);
+        model.addAttribute("penerbangan", penerbangan);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+        model.addAttribute("formatter", formatter);
+        return "view-penerbangan";
     }
 }

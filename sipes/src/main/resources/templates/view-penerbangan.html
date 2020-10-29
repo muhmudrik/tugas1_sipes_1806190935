@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Penerbangan</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="container">
+            <br><br><br>
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-center">Detail Penerbangan</h3>
+                    <br>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h6>Kode Penerbangan</h6>
+                                </td>
+                                <td>
+                                    <p th:text="${penerbangan.nomor_penerbangan}"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6>Kode Bandara Asal</h6>
+                                </td>
+                                <td>
+                                    <p th:text="${penerbangan.kode_bandara_asal}"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6>Kode Bandara Tujuan</h6>
+                                </td>
+                                <td>
+                                    <p th:text="${penerbangan.kode_bandara_tujuan}"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6>Waktu Berangkat</h6>
+                                </td>
+                                <td>
+                                    <p th:text="${formatter.format(penerbangan.waktu_berangkat)}"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6>Nomor Seri Pesawat</h6>
+                                </td>
+                                <td>
+                                    <p th:text="${penerbangan.pesawatModel == null ? 'Belum diassign pesawat' :penerbangan.pesawatModel.nomor_seri}"></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+    <style>
+        p{
+            margin: 0;
+        }
+        h6{
+            margin: 0;
+        }
+    </style>
+</html>
