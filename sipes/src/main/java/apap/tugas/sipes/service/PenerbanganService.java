@@ -10,8 +10,10 @@ public interface PenerbanganService {
 
     void updatePenerbangan(PenerbanganModel penerbangan);
     
+    void hapusPenerbangan(PenerbanganModel penerbangan);
+    
     List<PenerbanganModel> getAllPenerbangan();
 
 	PenerbanganModel getPenerbanganById(Long idPenerbangan);
-    
+
 }

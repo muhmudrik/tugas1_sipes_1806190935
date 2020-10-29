@@ -92,4 +92,14 @@ public class PenerbanganController {
         return "hasil-ubah-penerbangan";
     }
     
+    @PostMapping(value = "/penerbangan/ubah/{idPenerbangan}", params = "hapus")
+    private String hapusPenerbangan(
+        @PathVariable Long idPenerbangan,
+        Model model
+    ) {
+        PenerbanganModel penerbangan = penerbanganService.getPenerbanganById(idPenerbangan);
+        model.addAttribute("penerbangan", penerbangan);
+        penerbanganService.hapusPenerbangan(penerbangan);
+        return "hasil-hapus-penerbangan";
+    }
 }

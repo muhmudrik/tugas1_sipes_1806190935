@@ -34,5 +34,10 @@ public class PenerbanganServiceImpl implements PenerbanganService {
     public PenerbanganModel getPenerbanganById(Long idPenerbangan) {
         return penerbanganDb.findById(idPenerbangan).get();
     }
+
+    @Override
+    public void hapusPenerbangan(PenerbanganModel penerbangan) {
+        penerbanganDb.delete(penerbangan);
+    }
     
 }
