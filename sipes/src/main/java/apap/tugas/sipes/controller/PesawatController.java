@@ -6,17 +6,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import apap.tugas.sipes.model.PenerbanganModel;
 import apap.tugas.sipes.model.PesawatModel;
 import apap.tugas.sipes.model.PesawatTeknisiModel;
 import apap.tugas.sipes.model.TeknisiModel;
 import apap.tugas.sipes.model.TipeModel;
+import apap.tugas.sipes.service.PenerbanganService;
 import apap.tugas.sipes.service.PesawatService;
 import apap.tugas.sipes.service.PesawatTeknisiService;
 import apap.tugas.sipes.service.TeknisiService;
@@ -35,6 +39,9 @@ public class PesawatController {
 
     @Autowired
     private PesawatTeknisiService pesawatTeknisiService;
+
+    @Autowired
+    private PenerbanganService penerbanganService;
 
     @GetMapping("/")
     private String home() {
@@ -127,7 +134,7 @@ public class PesawatController {
         return "view-all-pesawat";
     }
 
-    @GetMapping("/pesawat/{idPesawat}")
+    @GetMapping({"/pesawat/{idPesawat}", "/pesawat/{idPesawat}/tambah-penerbangan"})
     private String viewDetailPesawat(
         @PathVariable Long idPesawat,
         Model model
@@ -144,6 +151,9 @@ public class PesawatController {
         }
 
         model.addAttribute("listTeknisi", listTeknisi);
+
+        List<PenerbanganModel> penerbanganNull = penerbanganService.getPenerbanganNull();
+        model.addAttribute("penerbanganNull", penerbanganNull);
         return "view-pesawat";
     }
 
@@ -178,6 +188,24 @@ public class PesawatController {
         model.addAttribute("noseri", pesawat.getNomor_seri());
         pesawatService.hapusPesawat(pesawat);
         return "hasil-hapus-pesawat";
+    }
+
+    @PostMapping(value = "/pesawat/{idPesawat}/tambah-penerbangan", params = "tambah")
+    private String tambahPenerbangan(
+        @PathVariable Long idPesawat,
+        @RequestParam Long idPenerbangan,
+        Model model
+    ) {
+        try {
+            PenerbanganModel penerbangan = penerbanganService.getPenerbanganById(idPenerbangan);
+            penerbangan.setPesawatModel(pesawatService.getPesawatById(idPesawat));
+            penerbanganService.addPenerbangan(penerbangan);
+            model.addAttribute("sks", "Penerbangan dengan nomor " 
+                + penerbangan.getNomor_penerbangan() + " berhasil ditambahkan!");
+            return viewDetailPesawat(idPesawat, model);
+        } catch (InvalidDataAccessApiUsageException e) {
+            return "redirect:/pesawat/" + idPesawat;
+        }
     }
 
 }

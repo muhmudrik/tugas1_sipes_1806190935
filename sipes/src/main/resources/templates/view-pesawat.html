@@ -75,30 +75,95 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
-                    <h5 class="text-center">Daftar Teknisi Pesawat</h5>
-                </div>
-            </div>
-            <div class="row justify-content-center">
                 <div class="col-4">
-                    <table class="table">
-                        <thead class="table-primary">
-                            <tr>
-                                <td>No</td>
-                                <td>Nama</td>
-                                <td>Nomor Telepon</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="teknisi, iterationStatus : ${listTeknisi}">
-                                <td th:text="${iterationStatus.count}"></td>
-                                <td th:text="${teknisi.nama}"></td>
-                                <td th:text="'0' + ${teknisi.nomor_telepon}"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-center">Daftar Teknisi Pesawat</h5>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <table class="table">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <td>No</td>
+                                        <td>Nama</td>
+                                        <td>Nomor Telepon</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="teknisi, iterationStatus : ${listTeknisi}">
+                                        <td th:text="${iterationStatus.count}"></td>
+                                        <td th:text="${teknisi.nama}"></td>
+                                        <td th:text="'0' + ${teknisi.nomor_telepon}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-center">Daftar Penerbangan</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row justify-content-end" style="margin-bottom:9px;">
+                                <form class="col-5 d-inline-flex" th:action="@{/pesawat/} + ${pesawat.id} + '/tambah-penerbangan'" method="POST">
+                                    <select class="form-control" name="idPenerbangan">
+                                        <option value="" hidden selected>pilih penerbangan</option>
+                                        <option
+                                            th:each="valnul : ${penerbanganNull}"
+                                            th:value="${valnul.id}"
+                                            th:text="${valnul.nomor_penerbangan}"
+                                        >
+                                        </option>
+                                    </select>
+                                    <button type="submit" class="btn btn-info" name="tambah">
+                                        Tambah
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="row" style="margin-left: 132px;">
+                                <div class="row">
+                                    <table class="table">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <td>No</td>
+                                                <td>Nomor Penerbangan</td>
+                                                <td>Bandara Asal</td>
+                                                <td>Bandara Tujuan</td>
+                                                <td>Waktu Berangkat</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="terbang, iterationStatus : ${pesawat.listPenerbangan}">
+                                                <td th:text="${iterationStatus.count}"></td>
+                                                <td th:text="${terbang.nomor_penerbangan}"></td>
+                                                <td th:text="${terbang.kode_bandara_asal}"></td>
+                                                <td th:text="${terbang.kode_bandara_tujuan}"></td>
+                                                <td th:text="${formatter.format(terbang.waktu_berangkat)}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-12">
+                                        <p th:text="${sks}" 
+                                            style="margin-top:10px !important; color: green;"
+                                        >
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
         </div>
     </body>
     <style>

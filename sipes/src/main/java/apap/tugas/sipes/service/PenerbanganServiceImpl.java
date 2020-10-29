@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import apap.tugas.sipes.model.PenerbanganModel;
+import apap.tugas.sipes.model.PesawatModel;
 import apap.tugas.sipes.repository.PenerbanganDb;
 
 @Service
@@ -21,7 +22,7 @@ public class PenerbanganServiceImpl implements PenerbanganService {
     }
 
     @Override
-    public void updatePenerbangan(PenerbanganModel penerbangan){
+    public void updatePenerbangan(PenerbanganModel penerbangan) {
         penerbanganDb.save(penerbangan);
     }
 
@@ -38,6 +39,17 @@ public class PenerbanganServiceImpl implements PenerbanganService {
     @Override
     public void hapusPenerbangan(PenerbanganModel penerbangan) {
         penerbanganDb.delete(penerbangan);
+    }
+
+    @Override
+    public List<PenerbanganModel> getPenerbanganNull() {
+        List<PenerbanganModel> penerbanganNull = penerbanganDb.findByPesawatModelIsNull();
+        return penerbanganNull;
+    }
+
+    @Override
+    public void setPesawatModel(PesawatModel pesawatById) {
+        
     }
     
 }
