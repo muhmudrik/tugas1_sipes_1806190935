@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lihat Seluruh Penerbangan</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <br><br><br>
+                    <h2 class="text-center">Daftar Penerbangan</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <a style="color: inherit;" th:href="@{/penerbangan/tambah/}">
+                        <button class="btn"
+                                style=" color: white;
+                                        background-color: rgb(53, 174, 214);"
+                        >
+                            + Tambah Penerbangan
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-center">
+                <div class="col-7">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="table-primary">
+                                <td>No</td>
+                                <td>Kode Penerbangan</td>
+                                <td>Bandara Asal</td>
+                                <td>Bandara Tujuan</td>
+                                <td>Waktu Berangkat</td>
+                                <td>Aksi</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="penerbangan, iterationStatus : ${listPenerbangan}">
+                                <td th:text="${iterationStatus.count}"></td>
+                                <td th:text="${penerbangan.nomor_penerbangan}"></td>
+                                <td th:text="${penerbangan.kode_bandara_asal}"></td>
+                                <td th:text="${penerbangan.kode_bandara_tujuan}"></td>
+                                <td th:text="${penerbangan.waktu_berangkat}"></td>
+                                <td>
+                                    <form th:action="@{/penerbangan/ubah/} + ${penerbangan.id}" method="POST">
+                                        <a th:href="@{/penerbangan/} + ${penerbangan.id}" class="btn btn-info">Lihat</a>
+                                        <a th:href="@{/penerbangan/ubah/} + ${penerbangan.id}" class="btn btn-warning">Ubah</a>
+                                        <button class="btn btn-danger" type="submit" name="hapus">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
