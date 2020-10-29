@@ -157,7 +157,7 @@ public class PesawatController {
         return "form-update-pesawat";
     }
 
-    @PostMapping("/pesawat/ubah/{idPesawat}")
+    @PostMapping(value = "/pesawat/ubah/{idPesawat}", params = "save")
     private String ubahPesawat(
         @PathVariable Long idPesawat,
         @ModelAttribute PesawatModel pesawat,
@@ -166,6 +166,18 @@ public class PesawatController {
         pesawatService.updatePesawat(pesawat);
         model.addAttribute("pesawat", pesawat);
         return "hasil-ubah-pesawat";
+    }
+
+    @PostMapping(value = "/pesawat/ubah/{idPesawat}", params = "hapus")
+    private String hapusPesawat(
+        @PathVariable Long idPesawat,
+        Model model
+    ) {
+        PesawatModel pesawat = pesawatService.getPesawatById(idPesawat);
+        model.addAttribute("maskapai", pesawat.getMaskapai());
+        model.addAttribute("noseri", pesawat.getNomor_seri());
+        pesawatService.hapusPesawat(pesawat);
+        return "hasil-hapus-pesawat";
     }
 
 }

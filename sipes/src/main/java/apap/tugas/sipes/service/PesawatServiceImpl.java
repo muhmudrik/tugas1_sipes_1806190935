@@ -27,12 +27,14 @@ public class PesawatServiceImpl implements PesawatService {
 		return pesawatDb.findById(id).get();
 	}
 
+	@Override
 	public void addPesawat(PesawatModel pesawat) {
 		String noseri = noSeriBuilder(pesawat);
 		pesawat.setNomor_seri(noseri);
 		pesawatDb.save(pesawat);
 	}
 
+	@Override
 	public void updatePesawat(PesawatModel pesawatBaru){
 		boolean modif = false;
 		PesawatModel pesawatLama = pesawatDb.findById(pesawatBaru.getId()).get();
@@ -50,6 +52,11 @@ public class PesawatServiceImpl implements PesawatService {
 			pesawatBaru.setNomor_seri(noSeriBuilder(pesawatBaru));
 		}
 		pesawatDb.save(pesawatBaru);
+	}
+
+	@Override
+	public void hapusPesawat(PesawatModel pesawat) {
+		pesawatDb.delete(pesawat);
 	}
 
 	private String noSeriBuilder(PesawatModel pesawat){

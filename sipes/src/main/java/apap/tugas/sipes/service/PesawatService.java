@@ -10,7 +10,10 @@ public interface PesawatService {
 
 	void updatePesawat(PesawatModel pesawat);
    
+	void hapusPesawat(PesawatModel pesawat);
+	
 	List<PesawatModel> getAllPesawat();
 
 	PesawatModel getPesawatById(Long id);
+
 }
