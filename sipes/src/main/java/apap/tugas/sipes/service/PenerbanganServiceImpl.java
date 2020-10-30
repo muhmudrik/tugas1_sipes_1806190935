@@ -46,10 +46,4 @@ public class PenerbanganServiceImpl implements PenerbanganService {
         List<PenerbanganModel> penerbanganNull = penerbanganDb.findByPesawatModelIsNull();
         return penerbanganNull;
     }
-
-    @Override
-    public void setPesawatModel(PesawatModel pesawatById) {
-        
-    }
-    
 }

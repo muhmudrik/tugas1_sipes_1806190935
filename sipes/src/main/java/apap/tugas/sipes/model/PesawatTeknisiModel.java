@@ -1,5 +1,7 @@
 package apap.tugas.sipes.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "pesawat_teknisi")
-public class PesawatTeknisiModel {
+public class PesawatTeknisiModel implements Serializable{
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

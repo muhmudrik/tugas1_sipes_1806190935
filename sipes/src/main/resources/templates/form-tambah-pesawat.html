@@ -68,7 +68,6 @@
                         <tr style="background-color: gainsboro; padding-bottom: 100%;">
                             <td>Teknisi</td>
                             <td>
-                                <!-- <input type="hidden" th:field="*{listPesawatTeknisi}"> -->
                                 <div th:each="pesawatTeknisi, iterationStatus : *{listPesawatTeknisi}">
                                     <select class="form-control" th:field="*{listPesawatTeknisi[__${iterationStatus.index}__].teknisiModel}">
                                         <option value="" hidden selected>pilih teknisi</option>
@@ -79,14 +78,6 @@
                                         </option>
                                     </select>
                                 </div>
-                                <!-- <select class="form-control">
-                                    <option value="" hidden selected>pilih teknisi</option>
-                                    <option 
-                                        th:each="teknisi : ${teknisi}"
-                                        th:value="${teknisi.id}" 
-                                        th:text="${teknisi.nama}">
-                                    </option>
-                                </select> -->
                             </td>
                         </tr>
                         <tr>

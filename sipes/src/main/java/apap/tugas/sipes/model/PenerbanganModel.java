@@ -17,8 +17,6 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 

@@ -264,18 +264,4 @@ public class PesawatController {
         model.addAttribute("listPesawat", listPesawat);
         return "view-filter-pesawat";
     }
-
-    // @GetMapping(value = "/pesawat/filter")
-    // private String cariFilterPesawat(
-    //     @RequestParam Long idPenerbangan,
-    //     @RequestParam Long idTipe,
-    //     @RequestParam Long idTeknisi,
-    //     Model model
-    // ) {
-    //     // model.addAttribute("listPesawat", pesawatService.getAllPesawat());
-    //     System.out.println(idPenerbangan);
-    //     System.out.println(idTipe);
-    //     System.out.println(idTeknisi);
-    //     return "view-filter-pesawat";
-    // }
 }
