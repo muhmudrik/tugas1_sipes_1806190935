@@ -5,6 +5,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -233,4 +234,43 @@ public class PesawatController {
         model.addAttribute("listPesawat", pesawatService.getAllPesawat());
         return "view-jumlah-teknisi";
     }
+
+    @GetMapping("/pesawat/filter")
+    private String getFilterPesawatForm(
+        @RequestParam Optional<Long> idPenerbangan,
+        @RequestParam Optional<Long> idTipe,
+        @RequestParam Optional<Long> idTeknisi,
+        Model model
+    ) {
+        model.addAttribute("listPenerbanganAsli", penerbanganService.getAllPenerbangan());
+        model.addAttribute("listTipe", tipeService.getListTipe());
+        model.addAttribute("listTeknisi", teknisiService.getListTeknisi());
+
+        List<PesawatModel> listPesawat = pesawatService.getAllPesawat();
+        if(idPenerbangan.isPresent()==true){
+            listPesawat = pesawatService.filterIdPenerbangan(listPesawat, idPenerbangan.get());
+        }
+        if(idTipe.isPresent()==true){
+            listPesawat = pesawatService.filterTipe(listPesawat, idTipe.get());
+        }
+        if(idTeknisi.isPresent()==true){
+            listPesawat = pesawatService.filterTeknisi(listPesawat, idTeknisi.get());
+        }
+        model.addAttribute("listPesawat", listPesawat);
+        return "view-filter-pesawat";
+    }
+
+    // @GetMapping(value = "/pesawat/filter")
+    // private String cariFilterPesawat(
+    //     @RequestParam Long idPenerbangan,
+    //     @RequestParam Long idTipe,
+    //     @RequestParam Long idTeknisi,
+    //     Model model
+    // ) {
+    //     // model.addAttribute("listPesawat", pesawatService.getAllPesawat());
+    //     System.out.println(idPenerbangan);
+    //     System.out.println(idTipe);
+    //     System.out.println(idTeknisi);
+    //     return "view-filter-pesawat";
+    // }
 }

@@ -1,6 +1,7 @@
 package apap.tugas.sipes.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import apap.tugas.sipes.model.PenerbanganModel;
 import apap.tugas.sipes.model.PesawatModel;
+import apap.tugas.sipes.model.PesawatTeknisiModel;
 import apap.tugas.sipes.repository.PesawatDb;
 
 @Service
@@ -104,5 +107,45 @@ public class PesawatServiceImpl implements PesawatService {
 		return r.toString();
 	}
 
+	@Override
+	public List<PesawatModel> filterIdPenerbangan(List<PesawatModel> listPesawat, Long idPenerbangan) {
+		List<PesawatModel> listTemp = new ArrayList<PesawatModel>();
+		for (PesawatModel pswt : listPesawat) {
+			for (PenerbanganModel terbang : pswt.getListPenerbangan()) {
+				if(terbang.getId()==idPenerbangan){
+					listTemp.add(pswt);
+					break;
+				}
+			}
+			break;
+		}
+		return listTemp;
+	}
+
+	@Override
+	public List<PesawatModel> filterTipe(List<PesawatModel> listPesawat, Long idTipe) {
+		List<PesawatModel> listTemp = new ArrayList<PesawatModel>();
+		for (PesawatModel pswt : listPesawat) {
+			if(pswt.getTipeModel().getId()==idTipe){
+				listTemp.add(pswt);
+			}
+		}
+		return listTemp;
+	}
+
+	@Override
+	public List<PesawatModel> filterTeknisi(List<PesawatModel> listPesawat, Long idTeknisi) {
+		List<PesawatModel> listTemp = new ArrayList<PesawatModel>();
+		for (PesawatModel pswt : listPesawat) {
+			for (PesawatTeknisiModel tkns : pswt.getListPesawatTeknisi()) {
+
+				if(tkns.getTeknisiModel().getId()==idTeknisi){
+					listTemp.add(pswt);
+					break;
+				}
+			}
+		}
+		return listTemp;
+	}
 
 }

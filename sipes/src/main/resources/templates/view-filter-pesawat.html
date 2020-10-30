@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lihat Jumlah Teknisi Pesawat</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-3">
+                    <br>
+                    <div class="card">
+                        <div class="card-header badge-info">
+                            <h5>Cari Pesawat</h5>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/pesawat/filter}" method="GET">
+                                <p>Penerbangan</p>
+                                <select class="form-control" name="idPenerbangan">
+                                    <option th:value="${null}" hidden selected>Pilih Penerbangan</option>
+                                    <option th:each="penerbangan : ${listPenerbanganAsli}"
+                                        th:value="${penerbangan.id}"
+                                        th:text="${penerbangan.nomor_penerbangan}"
+                                    >
+                                    </option>
+                                </select>
+                                <p>Tipe</p>
+                                <select class="form-control" name="idTipe">
+                                    <option th:value="${null}" hidden selected>Pilih Tipe</option>
+                                    <option th:each="tipe : ${listTipe}"
+                                        th:value="${tipe.id}"
+                                        th:text="${tipe.nama}"
+                                    >
+                                </select>
+                                <p>Teknisi</p>
+                                <select class="form-control" name="idTeknisi">
+                                    <option th:value="${null}" hidden selected>Pilih Teknisi</option>
+                                    <option th:each="teknisi : ${listTeknisi}"
+                                        th:value="${teknisi.id}"
+                                        th:text="${teknisi.nama}"
+                                    >
+                                </select>
+                                <div class="row justify-content-end">
+                                    <button class="btn btn-info" 
+                                        style="margin-right: 15px; margin-top: 10px;"
+                                    >Cari</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-center">
+                <div class="col-7">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="table-primary">
+                                <td>No</td>
+                                <td>Nomor Seri</td>
+                                <td>Tipe Pesawat</td>
+                                <td>Jenis Pesawat</td>
+                                <td>Maskapai</td>
+                                <td>Nomor Penerbangan</td>
+                                <td>Teknisi</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="pesawat, iterationStatus : ${listPesawat}">
+                                <td th:text="${iterationStatus.count}"></td>
+                                <td th:text="${pesawat.nomor_seri}"></td>
+                                <td th:text="${pesawat.tipeModel.nama}"></td>
+                                <td th:text="${pesawat.jenis_pesawat}"></td>
+                                <td th:text="${pesawat.maskapai}"></td>
+                                <td>
+                                    <p th:each="terbang : ${pesawat.listPenerbangan}"
+                                        style="margin-top: 0;"
+                                        th:text="${terbang.nomor_penerbangan}"></p>
+                                </td>
+                                <td>
+                                    <p th:each="pesawatTeknisi : ${pesawat.ListPesawatTeknisi}" 
+                                        style="margin-top: 0;"
+                                        th:text="${pesawatTeknisi.teknisiModel.nama}"></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+    <style>
+        p{
+            margin: 0;
+            margin-top: 15px;
+        }
+    </style>
+</html>

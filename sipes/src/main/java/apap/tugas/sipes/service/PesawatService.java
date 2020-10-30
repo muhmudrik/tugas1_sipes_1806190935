@@ -16,4 +16,10 @@ public interface PesawatService {
 
 	PesawatModel getPesawatById(Long id);
 
+	List<PesawatModel> filterIdPenerbangan(List<PesawatModel> listPesawat, Long idPenerbangan);
+
+	List<PesawatModel> filterTipe(List<PesawatModel> listPesawat, Long idTipe);
+	
+	List<PesawatModel> filterTeknisi(List<PesawatModel> listPesawat, Long idTeknisi);
+
 }
