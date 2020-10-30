@@ -3,6 +3,8 @@ package apap.tugas.sipes.controller;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -50,8 +52,14 @@ public class PenerbanganController {
         }
         try {
             penerbanganService.addPenerbangan(penerbangan);
-        } catch (DataIntegrityViolationException e) {
+        } 
+        catch (DataIntegrityViolationException e) {
             model.addAttribute("kodeunik", "Kode penerbangan harus unik.");
+            model.addAttribute("penerbangan", penerbangan);
+            return "form-tambah-penerbangan";
+        }
+        catch (ConstraintViolationException e){
+            model.addAttribute("isilkp", "Isi form harus lengkap.");
             model.addAttribute("penerbangan", penerbangan);
             return "form-tambah-penerbangan";
         }
@@ -88,7 +96,34 @@ public class PenerbanganController {
         Model model
     ) {
         model.addAttribute("penerbangan", penerbangan);
-        penerbanganService.updatePenerbangan(penerbangan);
+        if(penerbangan.getNomor_penerbangan().length()!=16){
+            model.addAttribute("kodeunik", "Kode penerbangan harus 16 Digit.");
+            model.addAttribute("penerbangan", penerbangan);
+            return "form-update-penerbangan";
+        }
+        if(penerbangan.getKode_bandara_asal().length()==0){
+            model.addAttribute("isilkp", "Form harus diisi lengkap.");
+            model.addAttribute("penerbangan", penerbangan);
+            return "form-update-penerbangan";
+        }
+        if(penerbangan.getKode_bandara_tujuan().length()==0){
+            model.addAttribute("isilkp", "Form harus diisi lengkap.");
+            model.addAttribute("penerbangan", penerbangan);
+            return "form-update-penerbangan";
+        }
+        if(penerbangan.getWaktu_berangkat()==null){
+            model.addAttribute("isilkp", "Form harus diisi lengkap.");
+            model.addAttribute("penerbangan", penerbangan);
+            return "form-update-penerbangan";
+        }
+        try{
+            penerbanganService.updatePenerbangan(penerbangan);
+        }
+        catch (DataIntegrityViolationException e) {
+            model.addAttribute("kodeunik", "Kode penerbangan harus unik.");
+            model.addAttribute("penerbangan", penerbangan);
+            return "form-update-penerbangan";
+        }
         return "hasil-ubah-penerbangan";
     }
     

@@ -117,8 +117,13 @@ public class PesawatController {
             try {
                 pesawatService.addPesawat(pesawat);
                 break;
-            } catch (DataIntegrityViolationException e) {
+            } 
+            catch (DataIntegrityViolationException e) {
                 continue;
+            }
+            catch(NullPointerException e){
+                model.addAttribute("isilkp", "Isi Form harus lengkap.");
+                return getFormTambahPesawat(model);
             }
             
         }

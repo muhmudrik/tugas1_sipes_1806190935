@@ -21,6 +21,7 @@
             <div class="row justify-content-center">
                 <div class="col-6">
                     <form th:action="@{/penerbangan/ubah/} + ${penerbangan.id}" th:object="${penerbangan}" method="POST">
+                        <p th:text="${isilkp}" style="color: red;"></p>
                         <input type="hidden" th:field="*{id}">
                         <input type="hidden" th:field="*{pesawatModel}">
                         <p>Kode Penerbangan</p>
