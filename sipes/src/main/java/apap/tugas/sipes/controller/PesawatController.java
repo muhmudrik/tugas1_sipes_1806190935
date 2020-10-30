@@ -228,4 +228,9 @@ public class PesawatController {
         return "view-pesawat-tua";
     }
 
+    @GetMapping("/pesawat/jumlah-teknisi")
+    private String viewJumlahTeknisi(Model model) {
+        model.addAttribute("listPesawat", pesawatService.getAllPesawat());
+        return "view-jumlah-teknisi";
+    }
 }
