@@ -218,7 +218,7 @@ public class PesawatController {
         Period period;
         for (PesawatModel pswt : pesawatService.getAllPesawat()) {
             period = Period.between(pswt.getTanggal_dibuat(), today);
-            if(period.getYears()>10){
+            if(period.getYears()>=10){
                 listPesawat.add(pswt);
                 indexUmur.add(period.getYears());
             }
