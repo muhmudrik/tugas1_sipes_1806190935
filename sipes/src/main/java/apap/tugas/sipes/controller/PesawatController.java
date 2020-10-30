@@ -1,5 +1,7 @@
 package apap.tugas.sipes.controller;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -206,6 +208,24 @@ public class PesawatController {
         } catch (InvalidDataAccessApiUsageException e) {
             return "redirect:/pesawat/" + idPesawat;
         }
+    }
+
+    @GetMapping("/pesawat/pesawat-tua")
+    private String viewPesawatTua(Model model) {
+        List<PesawatModel> listPesawat = new ArrayList<PesawatModel>();
+        List<Integer> indexUmur = new ArrayList<Integer>();
+        LocalDate today = LocalDate.now();
+        Period period;
+        for (PesawatModel pswt : pesawatService.getAllPesawat()) {
+            period = Period.between(pswt.getTanggal_dibuat(), today);
+            if(period.getYears()>10){
+                listPesawat.add(pswt);
+                indexUmur.add(period.getYears());
+            }
+        }
+        model.addAttribute("listPesawat", listPesawat);
+        model.addAttribute("listUmur", indexUmur);
+        return "view-pesawat-tua";
     }
 
 }
